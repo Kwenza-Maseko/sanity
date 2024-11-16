@@ -42,4 +42,3 @@ export const deleteUser = async (id: string) => {
         console.error(error);
     }
 }
-

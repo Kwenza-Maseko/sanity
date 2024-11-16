@@ -1,9 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+}
+
+.pacifico-regular {
+  font-family: "Pacifico", cursive;
+  font-style: normal;
+}
+
+.content {
+  position: relative;
+  padding: 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: fit-content;
+}
+
+.bg-img-banner {
+  background-image: url("/assets/banner.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.content {
+  position: relative;
+}
+
+.content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom, transparent, #ffffffce);
+  /* Default to light mode */
+}
+
+.dark .content::after {
+  background-image: linear-gradient(to bottom, transparent, #000000d2);
+  /* Dark mode background */
+}
+
+.user_avatar:hover .user_name {
+  display: block;
+}
+
+.tester {
+  color: #f1f1f1;
+}
+
+.sidebar {
+  border-right: 2px solid #191953;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  cursor: grabbing;
 }
 
 @layer base {
@@ -34,6 +106,7 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -66,7 +139,9 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
+

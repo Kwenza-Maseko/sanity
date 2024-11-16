@@ -20,7 +20,15 @@ const UserSchema = new Schema({
     },
     profilePhoto: {
         type: String
-    }
+    },
+    projects: {
+        type: [{ type: mongoose.Schema.ObjectId, ref: "Projects" }],
+        default: []
+    },
+    tasks: {
+        type: [{ type: mongoose.Schema.ObjectId, ref: "Projects" }],
+        default: []
+    },
 });
 
 const User = mongoose.models.User || mongoose.model("User", UserSchema);
