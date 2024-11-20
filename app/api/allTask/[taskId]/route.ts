@@ -4,18 +4,21 @@ import { NextResponse } from "next/server";
 
 interface Params {
     params: {
-        taskId: string;
+      id: string;
     };
-}
-
-export async function GET(request: Request, { params }: Params) {
+  }
+  
+  export async function GET(request: Request, context: Params) {
     try {
-        await connectToDB();
+      await connectToDB();
+  
+      // Await params before using them
+      const { id } = await context.params;
 
-        const task = await Task.findOne({ _id: params.taskId }).sort({ createdAt: -1 }).exec();
+        const task = await Task.findOne({ _id: id }).sort({ createdAt: -1 }).exec();
 
         if (!task) {
-            return new NextResponse("task not found", { status: 404 });
+            return new NextResponse("Task not found", { status: 404 });
         }
 
         return NextResponse.json(task);
