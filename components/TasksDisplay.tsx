@@ -10,7 +10,7 @@ interface TaskData {
 }
 
 const TaskDisplay = () => {
-    const { user, isLoaded } = useUser();
+    const {  isLoaded } = useUser();
     const [loading, setLoading] = useState(true);
     const [taskData, setTaskData] = useState<TaskData[]>([]); // Updated to an array of TaskData
 

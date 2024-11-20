@@ -28,7 +28,8 @@ const AddTool = () => {
         const { name, value } = e.target;
         setToolData((prev) => ({ ...prev, [name]: value }));
     };
-    const handleToolTypeChange = (value: any) => {
+
+    const handleToolTypeChange = (value: string) => {
         setToolData((prev) => ({ ...prev, toolType: value }));
     };
 

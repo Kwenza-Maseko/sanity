@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from 'next/navigation';
-import { Plus } from 'lucide-react'
+import { Plus } from 'lucide-react';
 import TaskMade from "@/components/TaskMade";
 
 interface ProjectData {
@@ -10,12 +10,12 @@ interface ProjectData {
     creator: string;
     projectName: string;
     projectType: string;
-    client: string; // Client ID
+    client: string;
     isInternalProject: string;
     status: string;
     createdAt: Date;
-    clientFirstName?: string; // Add this optional property
-    clientLastName?: string; // Add this optional property
+    clientFirstName?: string;
+    clientLastName?: string;
 }
 
 const Page = () => {
@@ -29,16 +29,16 @@ const Page = () => {
         try {
             const response = await fetch(`/api/projects/${projectId}`);
             if (!response.ok) throw new Error('Failed to fetch projects');
-            const data = await response.json();
+            const data: ProjectData[] | ProjectData = await response.json();
 
-            // Ensure that `data` is an array
             if (Array.isArray(data)) {
                 setProjects(data);
             } else {
-                setProjects([data]); // Wrap in an array if it's a single object
+                setProjects([data]);
             }
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            const errorMessage = (err as Error).message;
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -48,29 +48,23 @@ const Page = () => {
         try {
             const response = await fetch(`/api/clienthook/${clientId}`);
             if (!response.ok) throw new Error("Failed to fetch client");
-            const clientData = await response.json();
+            const clientData: { clientFirstName: string; clientLastName: string } = await response.json();
 
-            // Update the specific project with the client's first name
             setProjects(prevProjects =>
                 prevProjects.map(project =>
                     project._id === projectId
-                        ? {
-                            ...project,
-                            clientFirstName: clientData.clientFirstName,
-                            clientLastName: clientData.clientLastName
-                        }
+                        ? { ...project, clientFirstName: clientData.clientFirstName, clientLastName: clientData.clientLastName }
                         : project
                 )
             );
-        } catch (err: any) {
-            console.error("Error fetching client:", err);
+        } catch (err: unknown) {
+            console.error("Error fetching client:", (err as Error).message);
         }
     };
 
-
     useEffect(() => {
         getProject();
-    }, []);
+    }, [projectId]);
 
     useEffect(() => {
         projects.forEach((project) => {
@@ -80,18 +74,14 @@ const Page = () => {
         });
     }, [projects]);
 
-
     if (loading) return <div>Loading Projects...</div>;
     if (error) return <div>{error}</div>;
 
-
-
     return (
-        <div >
-
+        <div>
             <div className="flex justify-between">
                 <div className="rounded-md bg-zinc-100 border dark:bg-zinc-900 p-4 w-fit">
-                    {Array.isArray(projects) && projects.length > 0 ? (
+                    {projects.length > 0 ? (
                         projects.map((project) => (
                             <div key={project._id}>
                                 <div className="flex flex-col gap-2">
@@ -120,23 +110,19 @@ const Page = () => {
                 </div>
 
                 <div className="flex gap-4">
-                    <div className="flex gap-4">
-                        <Link href={`/projects/${projectId}/tasks`}>
-                            <div className="border rounded-md p-2 hover:bg-zinc-800 flex gap-3">
-                                <Plus className="h-[1.2rem] w-[1.2rem] dark:scale-100" />
-                                <p>Add Task</p>
-                            </div>
-                        </Link>
-                    </div>
+                    <Link href={`/projects/${projectId}/tasks`}>
+                        <div className="border rounded-md p-2 hover:bg-zinc-800 flex gap-3">
+                            <Plus className="h-[1.2rem] w-[1.2rem] dark:scale-100" />
+                            <p>Add Task</p>
+                        </div>
+                    </Link>
                 </div>
-
             </div>
             <div className="mt-4">
                 <TaskMade />
             </div>
         </div>
     );
-
 };
 
 export default Page;

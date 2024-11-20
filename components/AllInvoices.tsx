@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
     Table,
     TableBody,
@@ -52,49 +52,57 @@ const AllInvoices = () => {
             if (!response.ok) throw new Error('Failed to fetch invoice');
             const data = await response.json();
             setInvoices(data);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                console.error("Error fetching invoices:", err.message);
+                setError(err.message);
+            }
         } finally {
             setLoading(false);
         }
     };
 
-    const getUser = async (creatorId: string) => {
-        if (users[creatorId]) return; // Skip if already loaded
+    const getUser = useCallback(async (creatorId: string) => {
+        if (users[creatorId]) return;
         try {
             const response = await fetch(`/api/user/${creatorId}`);
             if (!response.ok) throw new Error('Failed to fetch user');
             const userData = await response.json();
             setUsers((prevUsers) => ({ ...prevUsers, [creatorId]: userData }));
-        } catch (err) {
-            console.error("Error fetching user:", err);
+        } catch (err: unknown) {
+            if (err instanceof Error) console.error("Error fetching user:", err.message);
         }
-    };
+    }, [users]);
 
-    // Fetch task by projectId instead of taskId
-    const getTasksByProjectId = async (projectId: string) => {
+    const getTasksByProjectId = useCallback(async (projectId: string) => {
         try {
-            const response = await fetch(`/api/taskDisplay/${projectId}`); // Assuming this endpoint fetches tasks by projectId
+            const response = await fetch(`/api/taskDisplay/${projectId}`);
             if (!response.ok) throw new Error('Failed to fetch tasks');
             const tasksData = await response.json();
-            tasksData.forEach((task: TaskData) => {
-                setTasks((prevTasks) => ({ ...prevTasks, [task._id]: task }));
-            });
-        } catch (err) {
-            console.error("Error fetching tasks:", err);
+            setTasks((prevTasks) =>
+                tasksData.reduce(
+                    (acc: { [key: string]: TaskData }, task: TaskData) => ({
+                        ...acc,
+                        [task._id]: task,
+                    }),
+                    prevTasks
+                )
+            );
+        } catch (err: unknown) {
+            if (err instanceof Error) console.error("Error fetching tasks:", err.message);
         }
-    };
+    }, []);
 
     useEffect(() => {
         getInvoice();
     }, []);
 
     useEffect(() => {
-        invoices.forEach(invoice => {
+        invoices.forEach((invoice) => {
             if (!users[invoice.creator]) getUser(invoice.creator);
             if (!tasks[invoice.taskId]) getTasksByProjectId(invoice.projectId);
         });
-    }, [invoices]);
+    }, [invoices, getUser, getTasksByProjectId, tasks, users]);
 
     if (loading) return <div>Loading Invoices...</div>;
     if (error) return <div>{error}</div>;

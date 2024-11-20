@@ -19,7 +19,7 @@ const ClientSchema = new Schema({
             validator: function(v: string) {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
             },
-            message: (props: { value: any; }) => `${props.value} is not a valid email!`
+            message: (props: { value: string }) => `${props.value} is not a valid email!`  // Fix: value is of type string
         },
         required: false
     },

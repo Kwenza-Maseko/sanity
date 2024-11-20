@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
     Table,
     TableBody,
@@ -55,17 +55,17 @@ const ClientComp = () => {
         }
     };
 
-    const getUser = async (creatorId: string) => {
+    const getUser = useCallback(async (creatorId: string) => {
         try {
             const response = await fetch(`/api/user/${creatorId}`);
             if (!response.ok) throw new Error('Failed to fetch user');
-            const userData = await response.json();
+            const userData: UserData = await response.json();
             setUsers((prevUsers) => ({ ...prevUsers, [creatorId]: userData }));
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error("Error fetching user:", err);
         }
-    };
-
+    }, []);
+    
     useEffect(() => {
         getClients();
     }, []);
@@ -76,7 +76,10 @@ const ClientComp = () => {
                 getUser(client.creator);
             }
         });
-    }, [clients]);
+    }, [clients, getUser, users]);
+
+  
+
 
     if (loading) return <div>Loading Clients...</div>;
     if (error) return <div>{error}</div>;

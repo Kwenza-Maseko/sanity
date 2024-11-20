@@ -53,16 +53,20 @@ const Page = () => {
     const getInvoice = async () => {
         try {
             const response = await fetch(`/api/invoice/${invoiceNumber}`);
-            if (!response.ok) throw new Error('Failed to fetch invoice');
+            if (!response.ok) throw new Error("Failed to fetch invoice");
             const data = await response.json();
             setInvoice(data);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("An unexpected error occurred.");
+            }
         } finally {
             setLoading(false);
         }
     };
-
+    
     const getUser = async (creatorId: string) => {
         if (users[creatorId]) return;
         try {

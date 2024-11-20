@@ -1,4 +1,4 @@
-import mongoose, { Schema, CallbackError } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const InvoiceSchema = new Schema({
     creator: {

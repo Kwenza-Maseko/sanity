@@ -9,7 +9,7 @@ interface ToolData {
 }
 
 const AllTools = () => {
-    const { user, isLoaded } = useUser();
+    const { isLoaded } = useUser();
     const [loading, setLoading] = useState(true);
     const [toolData, setToolData] = useState<ToolData[]>([]); // Expecting an array of tools
 

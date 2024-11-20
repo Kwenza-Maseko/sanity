@@ -12,7 +12,6 @@ import {
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
 import { useParams } from "next/navigation";
 
 interface TaskData {
@@ -36,9 +35,15 @@ interface ToolData {
     toolName: string;
 }
 
+interface UserData {
+    profilePhoto: string;
+    clerkId: string;
+    // other properties as needed
+}
+
 const TaskMade = () => {
     const [loading, setLoading] = useState(true);
-    const [users, setUsers] = useState<{ [key: string]: any }>({});
+    const [users, setUsers] = useState<{ [key: string]: UserData }>({});
     const [tasks, setTasks] = useState<TaskData[]>([]);
     const [projectNames, setProjectNames] = useState<{ [key: string]: string }>({});
     const [toolNames, setToolNames] = useState<{ [key: string]: string }>({});
@@ -58,8 +63,12 @@ const TaskMade = () => {
             }
 
             setTasks(data);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("An unknown error occurred");
+            }
         } finally {
             setLoading(false);
         }
@@ -73,9 +82,13 @@ const TaskMade = () => {
             if (!response.ok) throw new Error(`Failed to fetch project with ID: ${projectId}`);
             const projectData: ProjectData = await response.json();
             setProjectNames((prev) => ({ ...prev, [projectId]: projectData.projectName }));
-        } catch (err) {
-            console.error("Error fetching project:", err);
-            setError(`Error fetching project: ${err}`);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                console.error("Error fetching project:", err);
+                setError(`Error fetching project: ${err.message}`);
+            } else {
+                setError("An unknown error occurred while fetching project");
+            }
         }
     };
 
@@ -87,9 +100,13 @@ const TaskMade = () => {
             if (!response.ok) throw new Error(`Failed to fetch tool with ID: ${toolId}`);
             const toolData: ToolData = await response.json();
             setToolNames((prev) => ({ ...prev, [toolId]: toolData.toolName }));
-        } catch (err) {
-            console.error("Error fetching tool:", err);
-            setError(`Error fetching tool: ${err}`);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                console.error("Error fetching tool:", err);
+                setError(`Error fetching tool: ${err.message}`);
+            } else {
+                setError("An unknown error occurred while fetching tool");
+            }
         }
     };
 
@@ -99,10 +116,14 @@ const TaskMade = () => {
         try {
             const response = await fetch(`/api/user/${creatorId}`);
             if (!response.ok) throw new Error("Failed to fetch user");
-            const userData = await response.json();
+            const userData: UserData = await response.json();
             setUsers((prevUsers) => ({ ...prevUsers, [creatorId]: userData }));
-        } catch (err) {
-            console.error("Error fetching user:", err);
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                console.error("Error fetching user:", err);
+            } else {
+                console.error("An unknown error occurred while fetching user");
+            }
         }
     };
 
@@ -145,8 +166,8 @@ const TaskMade = () => {
                                 <TableCell>{toolNames[task.tool]}</TableCell>
                                 <TableCell>{new Date(task.createdAt).toLocaleDateString()}</TableCell>
                                 <TableCell>
-                                    <p className={`${task.status === "pending" ? "text-[#ff810c]" : ""
-                                        } ${task.status === "completed" ? "text-green-500" : ""}
+                                    <p className={`${task.status === "pending" ? "text-[#ff810c]" : ""}
+                                        ${task.status === "completed" ? "text-green-500" : ""}
                                         ${task.status === "inProgress" ? "text-purple-500" : ""}
                                         ${task.status === "archived" ? "text-red-500" : ""}
                                         capitalize`}>

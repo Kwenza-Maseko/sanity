@@ -13,7 +13,7 @@ interface ClientData {
     createAt: Date;
 }
 
-const page = () => {
+const Page = () => {
     const { user, isLoaded } = useUser();
     const [loading, setLoading] = useState(true);
     const [clientData, setClientData] = useState<ClientData | null>(null); // UserData type
@@ -68,4 +68,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;
