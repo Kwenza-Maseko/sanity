@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import { useState, useEffect, useCallback } from "react";
 import {
     Table,
@@ -81,7 +81,7 @@ const ClientComp = () => {
   
 
 
-    if (loading) return <div>Loading Clients...</div>;
+    if (loading) return <div>Loading Clientss...</div>;
     if (error) return <div>{error}</div>;
 
     // Filter clients based on the toggle state and current user ID

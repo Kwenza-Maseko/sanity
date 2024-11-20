@@ -1,3 +1,4 @@
+'use client'
 import { useGetCalls } from '@/hooks/useGetCalls';
 import { useRouter } from 'next/navigation';
 import MeetingCard from './MeetingCard';
@@ -22,7 +23,7 @@ const CallList = ({ type }: CallListProps) => {
   const { endedCalls, upcomingCalls, callRecordings, isLoading } = useGetCalls();
   const router = useRouter();
 
-  // Function to differentiate the calls based on the type
+  // Function to differentiate the calls based on the typee
   const getCalls = (): Meeting[] => {
     switch (type) {
       case 'ended':
