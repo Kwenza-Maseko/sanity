@@ -2,20 +2,11 @@ import Task from "@/lib/models/Tasks";
 import { connectToDB } from "@/lib/mongodb/mongoose";
 import { NextResponse } from "next/server";
 
-interface Params {
-    params: {
-      id: string;
-    };
-  }
-  
-  export async function GET(request: Request, context: Params) {
+export async function GET(request: Request, { params }: { params: { taskId: string } }) {
     try {
-      await connectToDB();
-  
-      // Await params before using them
-      const { id } = await context.params;
+        await connectToDB();
 
-        const task = await Task.findOne({ _id: id }).sort({ createdAt: -1 }).exec();
+        const task = await Task.findOne({ _id: params.taskId }).sort({ createdAt: -1 }).exec();
 
         if (!task) {
             return new NextResponse("Task not found", { status: 404 });
