@@ -2,12 +2,18 @@ import Task from "@/lib/models/Tasks";
 import { connectToDB } from "@/lib/mongodb/mongoose";
 import { NextResponse } from "next/server";
 
-// Next.js automatically provides the params in the context argument
-export async function GET(request: Request, { params }: { params: { taskId: string } }) {
-    const { taskId } = params; // Extract the taskId from params
-
+interface Params {
+    params: {
+      taskId: string;
+    };
+  }
+  
+  export async function GET(request: Request, context: Params) {
     try {
-        await connectToDB();
+      await connectToDB();
+  
+      // Await params before using them
+      const { taskId } = await context.params;
 
         const task = await Task.findOne({ _id: taskId }).sort({ createdAt: -1 }).exec();
 
