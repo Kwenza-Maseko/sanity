@@ -3,14 +3,11 @@
 import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
-import { Home, List, Folder, Music } from "lucide-react"
-import Search from "./Search";
 import { BsPeople } from "@react-icons/all-files/bs/BsPeople";
 import { RiDashboardLine } from "@react-icons/all-files/ri/RiDashboardLine";
 import { IoFolderOutline } from "@react-icons/all-files/io5/IoFolderOutline";
 import { RiToolsFill } from "@react-icons/all-files/ri/RiToolsFill";
 import { RiFileList3Line } from "@react-icons/all-files/ri/RiFileList3Line";
-import { GrSecure } from "@react-icons/all-files/gr/GrSecure";
 import { IoVideocamOutline } from "@react-icons/all-files/io5/IoVideocamOutline";
 
 const icons = [

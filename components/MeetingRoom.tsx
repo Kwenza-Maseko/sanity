@@ -6,12 +6,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LayoutList, Users } from 'lucide-react';
-import { Item } from '@radix-ui/react-dropdown-menu';
 import { useSearchParams } from 'next/navigation';
 import EndCallButton from './EndCallButton';
 

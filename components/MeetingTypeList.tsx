@@ -8,6 +8,10 @@ import MeetingModel from './MeetingModel';
 import { useToast } from "@/hooks/use-toast"
 import { Textarea } from './ui/textarea';
 import ReactDatePicker from 'react-datepicker';
+import { IoVideocamOutline } from "@react-icons/all-files/io5/IoVideocamOutline";
+import { BsPeople } from "@react-icons/all-files/bs/BsPeople";
+import { MdSchedule } from "@react-icons/all-files/md/MdSchedule";
+import { Input } from "@/components/ui/input"
 
 const MeetingTypeList = () => {
     const { toast } = useToast()
@@ -56,31 +60,43 @@ const MeetingTypeList = () => {
         }
     }
     const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetails?.id}`
+
+    const joinMeeting = () => {
+        if (!values.link) {
+            toast({ title: "Please enter a valid meeting link" });
+            return;
+        }
+
+        try {
+            route.push(values.link); // Navigate to the provided meeting link
+        } catch (error) {
+            console.log(error);
+            toast({ title: "Failed to join the meeting" });
+        }
+    };
+    
     return (
         <section className='grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4'>
             <HomeCard
                 title="New Meeting"
                 description="Start a instant meeting"
                 handleClick={() => setMeetingState('isInstantMeeting')}
-                className="bg-amber-900"
+                className="bg-red-800"
+                icon=<IoVideocamOutline />
             />
             <HomeCard
                 title="Schedule Meeting"
                 description="Plan your meeting"
                 handleClick={() => setMeetingState('isScheduleMeeting')}
                 className="bg-red-950"
-            />
-            <HomeCard
-                title="View Records"
-                description="Check out your records"
-                handleClick={() => route.push("/records")}
-                className="bg-green-900"
+                icon=<MdSchedule />
             />
             <HomeCard
                 title="Join Meeting"
                 description="Start a instant meeting"
                 handleClick={() => setMeetingState('isJoiningMeeting')}
                 className="bg-emerald-400"
+                icon=<BsPeople />
             />
 
             {!callDetails ? (
@@ -137,6 +153,24 @@ const MeetingTypeList = () => {
                 buttonText="Start Meeting"
                 handleClick={createMeeting}
             />
+
+            <MeetingModel
+                isOpen={meetingState === 'isJoiningMeeting'}
+                onClose={() => setMeetingState(undefined)}
+                title="Join meeting"
+                buttonText="Join Meeting"
+                handleClick={joinMeeting}
+            >
+                <div className="flex flex-col gap-2.5">
+                    <label className='text-base text-normal leading-[22px]'>
+                        Enter Meeting Link
+                    </label>
+
+                    <Input className=' docus-visble:ring-offset-0'
+                        onChange={(e) => { setValues({ ...values, description: e.target.value }) }
+                        } />
+                </div>
+            </MeetingModel>
 
         </section>
     )

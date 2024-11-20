@@ -10,7 +10,6 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import { HiOutlineDotsVertical } from "@react-icons/all-files/hi/HiOutlineDotsVertical";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "./ui/button";

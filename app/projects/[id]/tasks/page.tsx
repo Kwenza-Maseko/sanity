@@ -1,5 +1,4 @@
 import React from 'react'
-import AddProject from '@/components/AddProject'
 import AddTask from '@/components/AddTask'
 
 const page = () => {

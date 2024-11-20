@@ -3,10 +3,7 @@ import React, { ReactNode } from 'react'
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
-    DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -22,10 +19,10 @@ interface MeetingModelProps {
     buttonIcon?: string
 }
 
-const MeetingModel = ({ isOpen, onClose, title, className, children, handleClick, buttonText, buttonIcon }: MeetingModelProps) => {
+const MeetingModel = ({ isOpen, onClose, title, className, children, handleClick, buttonText }: MeetingModelProps) => {
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogTitle>Opened</DialogTitle>
+            <DialogTitle></DialogTitle>
             <DialogContent>
                 <div className='flex flex-col gap-6'>
                     <h1 className={cn('text-xl font-bold leading-[42px]', className)}>{title}</h1>

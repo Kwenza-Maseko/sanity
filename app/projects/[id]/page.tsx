@@ -1,19 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-import Image from "next/image";
-import { HiOutlineDotsVertical } from "@react-icons/all-files/hi/HiOutlineDotsVertical";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
 import { useParams } from 'next/navigation';
 import { Plus } from 'lucide-react'
 import TaskMade from "@/components/TaskMade";
@@ -31,24 +18,10 @@ interface ProjectData {
     clientLastName?: string; // Add this optional property
 }
 
-interface UserData {
-    clerkId: string;
-    profilePhoto: string;
-}
-
-interface ClientData {
-    _id: string;
-    clientFirstName: string;
-    clientLastName: string;
-}
-
-const page = () => {
+const Page = () => {
     const [loading, setLoading] = useState(true);
-    const [users, setUsers] = useState<{ [key: string]: UserData }>({});
     const [projects, setProjects] = useState<ProjectData[]>([]);
-    const [clients, setClients] = useState<{ [key: string]: ClientData }>({});
     const [error, setError] = useState<string | null>(null);
-    const { user } = useUser();
     const path = useParams();
     const projectId = path.id;
 
@@ -166,4 +139,4 @@ const page = () => {
 
 };
 
-export default page;
+export default Page;

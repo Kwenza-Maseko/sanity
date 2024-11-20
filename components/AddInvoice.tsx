@@ -8,14 +8,6 @@ import { Label } from "@/components/ui/label";
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-interface TaskData {
-    _id: string;
-    taskName: string;
-}
-interface ProjectData {
-    _id: string;
-    projectName: string;
-}
 
 const AddInvoice = () => {
     const { user } = useUser();

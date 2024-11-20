@@ -43,7 +43,6 @@ const TaskMade = () => {
     const [projectNames, setProjectNames] = useState<{ [key: string]: string }>({});
     const [toolNames, setToolNames] = useState<{ [key: string]: string }>({});
     const [error, setError] = useState<string | null>(null);
-    const { user } = useUser();
     const params = useParams();
     const projectId = params.id;
 

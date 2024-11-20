@@ -3,17 +3,13 @@ import { useState, useEffect } from "react";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { useParams } from 'next/navigation';
-import { Plus } from 'lucide-react';
 import html2pdf from "html2pdf.js";
 
 interface InvoiceData {
@@ -34,10 +30,6 @@ interface TaskData {
     taskDescription: string;
 }
 
-interface ProjectData {
-    _id: string;
-}
-
 interface UserData {
     clerkId: string;
     profilePhoto: string;
@@ -45,13 +37,12 @@ interface UserData {
     lastName: string;
 }
 
-const page = () => {
+const Page = () => {
     const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState<{ [key: string]: UserData }>({});
     const [tasks, setTasks] = useState<{ [key: string]: TaskData }>({});
     const [invoice, setInvoice] = useState<InvoiceData | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const { user } = useUser();
     const { invoiceNumber } = useParams(); // Access `invoiceNumber` from params
 
     useEffect(() => {
@@ -219,4 +210,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;
