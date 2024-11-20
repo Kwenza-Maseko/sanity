@@ -2,8 +2,9 @@ import Task from "@/lib/models/Tasks";
 import { connectToDB } from "@/lib/mongodb/mongoose";
 import { NextResponse } from "next/server";
 
+// Next.js automatically provides the params in the context argument
 export async function GET(request: Request, { params }: { params: { taskId: string } }) {
-    const { taskId } = params;
+    const { taskId } = params; // Extract the taskId from params
 
     try {
         await connectToDB();
@@ -17,6 +18,6 @@ export async function GET(request: Request, { params }: { params: { taskId: stri
         return NextResponse.json(task);
     } catch (error) {
         console.error("Failed to load task:", error);
-        return new NextResponse("Failed to load taskk", { status: 500 });
+        return new NextResponse("Failed to load task", { status: 500 });
     }
 }
