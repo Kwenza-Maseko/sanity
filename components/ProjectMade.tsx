@@ -43,12 +43,6 @@ interface UserData {
     lastName: string;
 }
 
-interface ClientData {
-    _id: string;
-    clientFirstName: string;
-    clientLastName: string;
-}
-
 const ProjectMade = () => {
     const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState<{ [key: string]: UserData }>({});
@@ -65,8 +59,8 @@ const ProjectMade = () => {
             const data = await response.json();
             if (data.length === 0) throw new Error('No projects found');
             setProjects(data);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
+            setError((err as Error).message); // Specify `Error` type here
         } finally {
             setLoading(false);
         }
@@ -78,7 +72,7 @@ const ProjectMade = () => {
             if (!response.ok) throw new Error('Failed to fetch user');
             const userData = await response.json();
             setUsers((prevUsers) => ({ ...prevUsers, [creatorId]: userData }));
-        } catch (err: any) {
+        } catch (err) {
             console.error("Error fetching user:", err);
         }
     };
@@ -96,7 +90,7 @@ const ProjectMade = () => {
                         : project
                 )
             );
-        } catch (err: any) {
+        } catch (err) {
             console.error("Error fetching client:", err);
         }
     };

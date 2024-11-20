@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import {  NextResponse } from 'next/server';
 import Task from '@/lib/models/Tasks';
 import { connectToDB } from '@/lib/mongodb/mongoose';
 
