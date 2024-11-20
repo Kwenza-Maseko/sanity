@@ -42,8 +42,9 @@ body {
   /* Default to light mode */
 }
 
+
 .dark .content::after {
-  background-image: linear-gradient(to bottom, transparent, #000000d2);
+  background-image: linear-gradient(to bottom, transparent, #6770a3);
   /* Dark mode background */
 }
 

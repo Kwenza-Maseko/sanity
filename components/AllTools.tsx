@@ -54,7 +54,7 @@ const AllTools = () => {
                     <h2 className="font-bold capitalize mb-2">{toolType}</h2>
                     <div className="flex gap-3">
                         {tools.map((tool, index) => (
-                            <div key={index} className="flex gap-6 border-b mb-4  border bg-zinc-200 dark:bg-zinc-900 p-3 rounded-md">
+                            <div key={index} className="flex gap-6 mb-4 border dark:border-slate-700 bg-zinc-200 dark:bg-[#02082c] p-3 rounded-md">
                                 <p className="font-medium capitalize">{tool.toolName}</p>
                             </div>
                         ))}

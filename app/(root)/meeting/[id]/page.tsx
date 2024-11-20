@@ -8,7 +8,7 @@ import { StreamCall, StreamTheme } from '@stream-io/video-react-sdk';
 import { useState, useEffect } from 'react';
 
 const Page = ({ params }: { params: Promise<{ id: string }> }) => {
-  const { user, isLoaded } = useUser();
+  const { isLoaded } = useUser();
   const [isSetupComplete, setIsSetupComplete] = useState(false);
   const [callId, setCallId] = useState<string | null>(null);
 

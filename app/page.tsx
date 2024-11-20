@@ -55,28 +55,26 @@ export default async function Home() {
           </Link>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-4 justify-between items-start">
-        <div className="rounded-md">
+      <div className="flex flex-col md:flex-row gap-6 md:justify-between">
+        <div className="w-full">
           <Profile />
         </div>
 
-        <div className="flex justify-between gap-6">
-          <div className="flex gap-2">
-            <div className="">
-              <ClientCount />
-            </div>
-            <div className="">
-              <ProjectCount />
-            </div>
-            <div className="">
-              <TaskCount />
-            </div>
+        <div className="flex flex-col md:flex-row md:justify-end gap-4 w-full">
+          <div className="">
+            <ClientCount />
+          </div>
+          <div className="">
+            <ProjectCount />
+          </div>
+          <div className="">
+            <TaskCount />
           </div>
         </div>
 
       </div>
       <div className="flex flex-col md:flex-row justify-between gap-4 mt-6">
-        <div className="h-[300px] gap-6 border p-6 rounded-md w-full overflow-y-hidden">
+        <div className="h-[300px] gap-6 border dark:border-slate-700 p-6 rounded-md w-full overflow-y-hidden">
           <p className='mb-3 capitalize'>last 5 tasks</p>
           <div className="h-full overflow-y-scroll">
             <TaskDisplay />
@@ -84,7 +82,7 @@ export default async function Home() {
         </div>
         <div className=" h-[300px] overflow-y-hidden w-full">
           <p className="font-bold text-lg mb-4">Tools</p>
-          <div className="h-full overflow-y-scroll  bg-zinc-200 dark:bg-zinc-900 rounded-md p-6">
+          <div className="h-full overflow-y-scroll  bg-zinc-200 dark:bg-[#010416d2] rounded-md p-6">
             <AllTools />
           </div>
         </div>

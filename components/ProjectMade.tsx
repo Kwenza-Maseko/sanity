@@ -119,7 +119,7 @@ const ProjectMade = () => {
         : projects;
 
     return (
-        <div className="rounded-md bg-zinc-200 border dark:bg-zinc-900">
+        <div className="rounded-md bg-zinc-200 border dark:border-slate-800 dark:bg-[#010416d2]">
             <Button onClick={() => setShowOnlyMyProject(!showOnlyMyProject)} className="mb-4 p-2 rounded m-4">
                 {showOnlyMyProject ? "Show All Projects" : "Show My Projects"}
             </Button>

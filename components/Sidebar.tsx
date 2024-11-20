@@ -27,9 +27,9 @@ const SideBar = () => {
     const path = usePathname();
 
     return (
-        <div className="w-[260px] p-2 h-svh overflow-y-hidden border-r-[7px] fixed left-0 bg-[#eeeded] dark:bg-[#000000]">
+        <div className="w-[260px] p-2 h-svh overflow-y-hidden border-r-[7px] dark:border-slate-800 fixed left-0 bg-[#eeeded] dark:bg-[#010416d2]">
             <div className="pacifico-regular">
-                <Link href="/" className="flex gap-3 items-center">
+                <Link href="/" className="flex gap-3 pt-4 items-center">
                     <div className="rounded-md px-2 text-[15pt] bg-slate-100 border dark:bg-[#ffffff] dark:text-[#000000]">
                         <p>S</p>
                     </div>
@@ -38,15 +38,14 @@ const SideBar = () => {
                     </div>
                 </Link>
             </div>
-            <Search />
-            <div className="flex flex-col gap-1 h-full overflow-y-scroll">
+            <div className="flex flex-col mt-8 gap-1 h-full overflow-y-scroll">
                 {
                     icons.map((iconObj, index) => {
                         const IconComponent = iconObj.component;
                         return (
                             <Link href={iconObj.url} passHref key={index}>
                                 <div className="mb-1">
-                                    <div className={`flex gap-3 items-center p-2 capitalize ${iconObj.url === path ? 'border-l-[3px] border-[#0dce16] bg-[#033a0552] font-semibold' : 'hover:border-l-[3px] hover:border-[#0dce16] hover:bg-[#033a0552]'}`}>
+                                    <div className={`flex gap-3 items-center p-3 capitalize ${iconObj.url === path ? 'border-l-[3px] border-[#6770a3] bg-[#04105586] font-semibold  rounded-r-md ' : ' rounded-md hover:bg-[#04105586]'}`}>
                                         <IconComponent className="text-[15pt]"/>
                                         {iconObj.label}
                                     </div>

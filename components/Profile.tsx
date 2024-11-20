@@ -34,25 +34,28 @@ const Profile = () => {
     if (loading || !isLoaded || !userData) {
         return <div>Loading User...</div>;
     }
+    const truncateMessage = (text: string) => {
+        return text.length > 14 ? text.slice(0, 14) + '...' : text;
+    };
 
 
     return (
-        <div className="flex gap-6 border bg-zinc-200 dark:bg-zinc-900 p-6 rounded-md">
+        <div className="flex justify-between gap-6 border dark:border-slate-800 bg-zinc-200 dark:bg-[#010416d2] p-6 rounded-md">
             <div className=''>
                 <Image src={userData.profilePhoto} width={70} height={70} alt='user' className='rounded-md object-cover photo ' />
             </div>
             <div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-8">
                     <div>
                         <div className="profile_items">
-                            <p className="font-bold capitalize text-lg">{userData.firstName} {userData.lastName}</p>
+                            <p className="font-bold capitalize text-lg">{truncateMessage(`${userData.firstName} ${userData.lastName}`)}</p>
                         </div>
                         <div className="profile_items">
-                            <p className="text-xs lowercase">{userData.username}</p>
+                            <p className="text-xs lowercase">{truncateMessage(`${userData.username}`)}</p>
                         </div>
                     </div>
                     <div className="profile_items mt-2">
-                        <p className="text-xs capitalize font-bold">software engineer</p>
+                        <p className="text-xs capitalize">software engineer</p>
                     </div>
 
                 </div>
