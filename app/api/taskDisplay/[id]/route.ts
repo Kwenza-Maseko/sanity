@@ -8,12 +8,14 @@ interface Params {
   };
 }
 
-export async function GET(request: NextRequest, { params }: Params) {
+export async function GET(request: Request, context: Params) {
   try {
     await connectToDB();
 
+    // Await params before using them
+    const { id } = await context.params;
     // Fetch tasks related to the projectId
-    const tasks = await Task.find({ projectId: params.id }).exec();
+    const tasks = await Task.find({ projectId: id }).exec();
 
     if (!tasks || tasks.length === 0) {
       return new NextResponse('Tasks not found', { status: 404 });

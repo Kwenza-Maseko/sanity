@@ -90,7 +90,7 @@ const ClientComp = () => {
         : clients;
 
     return (
-        <div className="rounded-md bg-zinc-200 dark:bg-zinc-900">
+        <div className="rounded-md bg-zinc-200 dark:border-slate-800 dark:bg-[#010416d2]">
             <Button
                 onClick={() => setShowOnlyMyClients(!showOnlyMyClients)}
                 className="mb-4 p-2 rounded m-4"

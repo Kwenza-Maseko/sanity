@@ -145,7 +145,7 @@ const TaskMade = () => {
     return (
         <div className="mt-6">
             <p className="mb-4 text-lg font-bold">Tasks</p>
-            <div className="rounded-md border bg-zinc-200 dark:bg-zinc-900">
+            <div className="rounded-md border bg-zinc-200 dark:border-slate-800 dark:bg-[#010416d2]">
                 <Table>
                     <TableCaption>A list of your tasks.</TableCaption>
                     <TableHeader>

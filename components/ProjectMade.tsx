@@ -20,6 +20,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Skeleton } from "./ui/skeleton";
 
 interface ProjectData {
     _id: string;
@@ -111,7 +112,10 @@ const ProjectMade = () => {
         });
     }, [projects]);
 
-    if (loading) return <div>Loading Projects...</div>;
+    if (loading) return
+    <div className="flex flex-col space-y-3">
+        <Skeleton className="h-[200px] w-[300px] rounded-xl" />
+    </div>;
     if (error) return <div>{error}</div>;
 
     const displayedProjects = showOnlyMyProject

@@ -112,7 +112,7 @@ const AllInvoices = () => {
         : invoices;
 
     return (
-        <div className="rounded-md bg-zinc-200 dark:bg-zinc-900">
+        <div className="rounded-md bg-zinc-200 dark:border-slate-800 dark:bg-[#010416d2]">
             <Button
                 onClick={() => setShowOnlyMyInvoices(!showOnlyMyInvoices)}
                 className="mb-4 p-2 rounded m-4"
@@ -142,15 +142,7 @@ const AllInvoices = () => {
                             <TableCell>{invoice.quantity}</TableCell>
                             <TableCell>{parseFloat(invoice.unitPrice).toFixed(2)}</TableCell>
                             <TableCell>{parseFloat(invoice.discount).toFixed(2)}</TableCell>
-                            <TableCell>{new Date(invoice.createdAt).toLocaleString('en-US', {
-                                weekday: 'long',
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                second: '2-digit'
-                            })}</TableCell>
+                            <TableCell>{new Date(invoice.createdAt).toLocaleDateString()}</TableCell>
                             <TableCell>
                                 <div className="relative user_avatar">
                                     {users[invoice.creator]?.profilePhoto ? (

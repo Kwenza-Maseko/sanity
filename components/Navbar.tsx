@@ -62,7 +62,7 @@ const Navbar = () => {
 
     return (
         <div className="py-4 px-2 md:px-8 border-b dark:border-slate-800 fixed top-0 right-0 lg:left-[260px] left-0
-        bg-[#ffffffce] dark:bg-[#010416d2] backdrop-blur-md">
+        bg-[#ffffffce] dark:bg-[#010416d2] backdrop-blur-md z-[10000]">
             {!userId ? (
                 <div>Not User Found</div>
             ) : (
