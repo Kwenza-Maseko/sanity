@@ -2,18 +2,12 @@ import Task from "@/lib/models/Tasks";
 import { connectToDB } from "@/lib/mongodb/mongoose";
 import { NextResponse } from "next/server";
 
-interface Params {
-    params: {
-      taskId: string;
-    };
-  }
-  
-  export async function GET(request: Request, context: Params) {
+// No need for interface, just destructure params directly in the context argument
+export async function GET(request: Request, { params }: { params: { taskId: string } }) {
+    const { taskId } = params; // Extract the taskId from params directly
+
     try {
-      await connectToDB();
-  
-      // Await params before using them
-      const { taskId } = await context.params;
+        await connectToDB(); // Ensure DB connection is made
 
         const task = await Task.findOne({ _id: taskId }).sort({ createdAt: -1 }).exec();
 
