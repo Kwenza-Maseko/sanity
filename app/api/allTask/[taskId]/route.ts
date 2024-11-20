@@ -17,6 +17,6 @@ export async function GET(request: Request, { params }: { params: { taskId: stri
         return NextResponse.json(task);
     } catch (error) {
         console.error("Failed to load task:", error);
-        return new NextResponse("Failed to load task", { status: 500 });
+        return new NextResponse("Failed to load taskk", { status: 500 });
     }
 }
