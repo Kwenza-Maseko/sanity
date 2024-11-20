@@ -2,8 +2,8 @@ import Task from "@/lib/models/Tasks";
 import { connectToDB } from "@/lib/mongodb/mongoose";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, context: { params: { taskId: string } }) {
-    const { taskId } = context.params;
+export async function GET(request: Request, { params }: { params: { taskId: string } }) {
+    const { taskId } = params;
 
     try {
         await connectToDB();
